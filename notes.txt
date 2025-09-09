@@ -1,0 +1,44 @@
+git clone https://github.com/Kumbhambargavi75/HospitalMgmtSystem.git 
+-----------------------------------------------------------------------------
+<dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> <version>2.5</version> <scope>provided</scope> <!-- container (Tomcat) will provide it --> </dependency> 
+---------------------------------------------------------------------------
+<properties> <maven.compiler.release>21</maven.compiler.release> <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version> </properties> <build> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> <version>${maven.compiler.plugin.version}</version> <configuration> <release>${maven.compiler.release}</release> </configuration> </plugin> ... </plugins> </build> 
+-----------------------------------------------------------------------------
+
+<dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> <version>4.12</version> </dependency> 
+<dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> <version>4.13.2</version> <scope>test</scope> </dependency> 
+Add <finalName> inside <build>:
+<build> <finalName>HospitalMgmtSystem</finalName> ... </build> 
+<dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> <version>4.0.0-b01</version> <scope>provided</scope> </dependency> 
+------------------------------------------------------------
+<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> <version>3.3.2</version> <!-- pick a recent version --> <configuration> <!-- if you don't have WEB-INF/web.xml set to false for newer servlet API --> <failOnMissingWebXml>false</failOnMissingWebXml> <!-- warName defaults to ${project.build.finalName} --> </configuration> </plugin> 
+
+-----------------------------------------------------------------------------
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion> <groupId>com.gmt.hospital</groupId> <artifactId>HospitalMgmt</artifactId> <version>1.1.0</version> <packaging>war</packaging> <name>HospitalMgmt</name> <url>https://github.com/your-username/HospitalMgmtSystem</url> <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <maven.compiler.release>21</maven.compiler.release> <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version> <maven.war.plugin.version>3.3.2</maven.war.plugin.version> </properties> <dependencies> <!-- Servlet API (container provides it) --> <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> <version>4.0.0-b01</version> <scope>provided</scope> </dependency> <!-- Unit tests --> <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> <version>4.13.2</version> <scope>test</scope> </dependency> </dependencies> <build> <finalName>HospitalMgmtSystem</finalName> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> <version>${maven.compiler.plugin.version}</version> <configuration> <release>${maven.compiler.release}</release> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> <version>${maven.war.plugin.version}</version> <configuration> <failOnMissingWebXml>false</failOnMissingWebXml> </configuration> </plugin> </plugins> </build> </project> 
+
+-----------------------------------------------------------------------------------
+git restore path/to/file 
+git commit --amend -m "Correct commit message" 
+git checkout -b feature/patient
+git push origin feature/patient 
+git branch -a  
+git push -u origin feature/patient 
+git fetch origin git status git pull 
+-------------------------------------------------------------------------------------
+In your project folder, create a new file Dockerfile (no extension) with:
+FROM tomcat:9-jdk11-openjdk RUN rm -rf /usr/local/tomcat/webapps/* COPY target/HospitalMgmtSystem.war /usr/local/tomcat/webapps/ROOT.war EXPOSE 8080 CMD ["catalina.sh", "run"] 
+docker build -t hospital-mgmt:latest . 
+docker images
+docker run -d --name hospital-container -p 9090:8080 hospital-mgmt:latest 
+docker pull mongo:latest docker run -d --name mongodb -p 27017:27017 mongo:latest docker ps
+docker tag hospital-mgmt:latest your-username/cms:latest docker login docker push your-username/cms:latest 
+--------------------------------------------------------------------
+
+
+
+
+
+
+
